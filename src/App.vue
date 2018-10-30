@@ -1,28 +1,69 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div
+    id="app"
+    class="app">
+    <div class="container">
+      <form
+        ref="form"
+        novalidate
+        @submit.prevent="submit"
+      >
+        <h1>Which platforms do you like?</h1>
+        <form-checkbox
+          v-for="(checkbox, key) in checkboxes"
+          :input="checkbox"
+          :key="key"
+          :ref="checkbox.name"
+        />
+        <input
+          class="btn-validate"
+          type="submit"
+          value="Show selected values">
+      </form>
+      <pre v-if="values">{{ values }}</pre>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import FormCheckbox from './components/FormCheckbox.vue';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld,
+    FormCheckbox,
+  },
+  data() {
+    return {
+      checkboxes: [
+        {
+          name: 'checkbox_ios',
+          label: 'iOS',
+          type: 'checkbox',
+          required: true,
+        },
+        {
+          name: 'checkbox_android',
+          label: 'Android',
+          type: 'checkbox',
+          required: true,
+        },
+      ],
+      values: null,
+    };
+  },
+  methods: {
+    submit() {
+      const formData = new FormData(this.$refs.form);
+      this.values = Array.from(formData.entries()).reduce((memo, pair) => ({
+        ...memo,
+        [pair[0]]: pair[1],
+      }), {});
+    },
   },
 };
 </script>
 
 <style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import '../src/less/app.less';
 </style>

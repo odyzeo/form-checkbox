@@ -1,0 +1,30 @@
+@color--radio: #50bccb;
+
+.checkbox {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.checkbox__element {
+  z-index: 1;
+
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  vertical-align: text-top;
+
+  background: white content-box;
+  border: 1px solid #8d8d8d;
+  border-radius: 2px;
+  transition: all .3s ease;
+
+  .checkbox__input:checked + & {
+    background-color: @color--radio;
+  }
+}
+
+.checkbox__input {
+  display: none;
+}
