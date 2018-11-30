@@ -83,9 +83,8 @@ export default {
 ### input - required
 | property name | type | description |
 | --- | --- | --- |
-| type | string | 'radio' |
 | name | string | name attribute |
-| options | array | array of radio options [{ value: 'value', name: 'name' }] |
+| label | string | label for checkbox |
 
 ### value - optional
 This is the initial value of the form checkbox.
