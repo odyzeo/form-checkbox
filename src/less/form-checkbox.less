@@ -1,12 +1,12 @@
-@color--radio: #50bccb;
+@color--form-checkbox: #50bccb;
 
-.checkbox {
+.form-checkbox {
   position: relative;
   display: block;
   cursor: pointer;
 }
 
-.checkbox__element {
+.form-checkbox__element {
   z-index: 1;
 
   display: inline-block;
@@ -20,11 +20,11 @@
   border-radius: 2px;
   transition: all .3s ease;
 
-  .checkbox__input:checked + & {
-    background-color: @color--radio;
+  .form-checkbox__input:checked + & {
+    background-color: @color--form-checkbox;
   }
 }
 
-.checkbox__input {
+.form-checkbox__input {
   display: none;
 }

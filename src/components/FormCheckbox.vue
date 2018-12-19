@@ -5,36 +5,34 @@
       'form-item--error': isErrorClass,
     }"
   >
-    <div class="form__checkbox">
-      <label class="checkbox">
-        <input
-          type="hidden"
-          :name="input.name"
-          :value="falseValue"
-          v-if="showFalseInput"
-        >
-        <input
-          type="checkbox"
-          class="checkbox__input"
-          :value="trueValue"
-          :id="uid"
-          :name="input.name"
-          :checked="value"
-          @change="change"
-        >
-        <span class="checkbox__element"></span>
-        <span class="checkbox__text">
+    <label class="form-checkbox">
+      <input
+        type="hidden"
+        :name="input.name"
+        :value="falseValue"
+        v-if="showFalseInput"
+      >
+      <input
+        type="checkbox"
+        class="form-checkbox__input"
+        :value="trueValue"
+        :id="uid"
+        :name="input.name"
+        :checked="value"
+        @change="change"
+      >
+      <span class="form-checkbox__element"></span>
+      <span class="form-checkbox__text">
         {{ input.label }}
       </span>
-      </label>
-      <div v-if="showFormErrors">
-        <div
-          class="form-item__error"
-          :key="`be_error_${key}`"
-          v-for="error in formErrors"
-          v-html="error"
-        ></div>
-      </div>
+    </label>
+    <div v-if="showFormErrors">
+      <div
+        class="form-item__error"
+        :key="`be_error_${key}`"
+        v-for="(error, key) in formErrors"
+        v-html="error"
+      ></div>
     </div>
   </div>
 </template>
@@ -51,15 +49,15 @@ export default {
       default: () => [],
     },
     value: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: false,
     },
     trueValue: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: 'yes',
     },
     falseValue: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
     },
   },
   data() {
@@ -94,6 +92,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../less/form-item.less';
-@import '../less/checkbox.less';
+@import '../less/form-checkbox';
 </style>
