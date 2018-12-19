@@ -19,9 +19,11 @@ yarn add @odyzeo/form-checkbox
 Import component in your where you want to use it and register it:
 
 ```
-import 'FormCheckbox' from '@odyzeo/form-checkbox';
+import FormCheckbox from '@odyzeo/form-checkbox';
 export default {
-  components: { FormCheckbox },
+  components: {
+    FormCheckbox,
+  },
 }
 ```
 
