@@ -12,15 +12,26 @@
         <form-checkbox
           v-for="(checkbox, key) in checkboxes"
           :input="checkbox"
+          :key="`${checkbox.name}-${checkbox.value}-${key}`"
+          v-model="checkbox.value"
+          :form-errors="formErrors[checkbox.name]"
+        ></form-checkbox>
+
+        <p></p>
+
+        <div
           :key="key"
-          :ref="checkbox.name"
-        />
-        <input
-          class="btn-validate"
-          type="submit"
-          value="Show selected values">
+          v-for="(checkbox, key) in checkboxes"
+        >
+          {{ checkbox.label }}: {{ checkbox.value }}
+        </div>
+
+        <p></p>
+
+        <button class="btn-validate">
+          Send
+        </button>
       </form>
-      <pre v-if="values">{{ values }}</pre>
     </div>
   </div>
 </template>
@@ -35,12 +46,14 @@ export default {
   },
   data() {
     return {
+      formErrors: {},
       checkboxes: [
         {
           name: 'checkbox_ios',
           label: 'iOS',
           type: 'checkbox',
           required: true,
+          value: true,
         },
         {
           name: 'checkbox_android',
@@ -48,17 +61,22 @@ export default {
           type: 'checkbox',
           required: true,
         },
+        {
+          name: 'checkbox_windows',
+          label: 'Windows',
+          type: 'checkbox',
+          required: true,
+          value: false,
+        },
       ],
-      values: null,
     };
   },
   methods: {
     submit() {
-      const formData = new FormData(this.$refs.form);
-      this.values = Array.from(formData.entries()).reduce((memo, pair) => ({
-        ...memo,
-        [pair[0]]: pair[1],
-      }), {});
+      this.formErrors = {
+        checkbox_android: ['Really?'],
+        checkbox_windows: ['Really?'],
+      };
     },
   },
 };

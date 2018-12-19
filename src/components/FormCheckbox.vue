@@ -1,33 +1,40 @@
 <template>
-  <div class="form__checkbox">
-    <label class="checkbox">
-      <input
-        v-if="falseValue && !value"
-        :name="input.name"
-        :value="falseValue"
-        type="hidden"
-      >
-      <input
-        :id="uid"
-        :value="trueValue"
-        :name="input.name"
-        :checked="value"
-        class="checkbox__input"
-        type="checkbox"
-        @change="change"
-      >
-      <span class="checkbox__element" />
-      <span class="checkbox__text">
+  <div
+    class="form-item"
+    :class="{
+      'form-item--error': isErrorClass,
+    }"
+  >
+    <div class="form__checkbox">
+      <label class="checkbox">
+        <input
+          type="hidden"
+          :name="input.name"
+          :value="falseValue"
+          v-if="showFalseInput"
+        >
+        <input
+          type="checkbox"
+          class="checkbox__input"
+          :value="trueValue"
+          :id="uid"
+          :name="input.name"
+          :checked="value"
+          @change="change"
+        >
+        <span class="checkbox__element"></span>
+        <span class="checkbox__text">
         {{ input.label }}
       </span>
-    </label>
-    <div v-if="showFormErrors">
-      <div
-        v-for="(error, key) in formErrors"
-        :key="`be_error_${key}`"
-        class="form-item__error"
-        v-html="error"
-      />
+      </label>
+      <div v-if="showFormErrors">
+        <div
+          class="form-item__error"
+          :key="`be_error_${key}`"
+          v-for="error in formErrors"
+          v-html="error"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,30 +47,36 @@ export default {
       required: true,
     },
     formErrors: {
-      type: Array,
+      type: [Array, Object],
       default: () => [],
     },
     value: {
-      type: Boolean,
+      type: [String, Number],
       default: false,
     },
     trueValue: {
-      type: String,
+      type: [String, Number],
       default: 'yes',
     },
     falseValue: {
-      type: String,
-      default: 'no',
+      type: [String, Number],
     },
   },
   data() {
     return {
+      errors: [],
       showFormErrors: false,
     };
   },
   computed: {
     uid() {
       return `form-item-${this._uid}`;
+    },
+    isErrorClass() {
+      return this.errors.length || (this.formErrors.length && this.showFormErrors);
+    },
+    showFalseInput() {
+      return this.falseValue && !this.value;
     },
   },
   watch: {
@@ -81,5 +94,6 @@ export default {
 </script>
 
 <style lang="less">
+@import '../less/form-item.less';
 @import '../less/checkbox.less';
 </style>

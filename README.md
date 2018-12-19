@@ -1,26 +1,115 @@
-# form-checkbox
+# @odyzeo/form-checkbox
 
-## Project setup
-```
-yarn install
-```
+Simple input checkbox Vue.js component.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Installation
 
-### Compiles and minifies for production
+### npm
+
 ```
-yarn run build
+npm install --save @odyzeo/form-checkbox
 ```
 
-### Run your tests
+### yarn
+
 ```
-yarn run test
+yarn add @odyzeo/form-checkbox
 ```
 
-### Lints and fixes files
+Import component in your where you want to use it and register it:
+
 ```
-yarn run lint
+import 'FormCheckbox' from '@odyzeo/form-checkbox';
+export default {
+  components: { FormCheckbox },
+}
+```
+
+Import styles or make your own.
+
+```
+import '@odyzeo/form-checkbox/dist/form-checkbox.css';
+```
+
+## Usage
+
+```
+<template>
+  <form-checkbox
+    v-for="(checkbox, key) in checkboxes"
+    :input="checkbox"
+    :key="`${checkbox.name}-${checkbox.value}-${key}`"
+    v-model="checkbox.value"
+    :form-errors="formErrors[checkbox.name]"
+  ></form-checkbox>
+</template>
+```
+
+```
+<script>
+import FormCheckbox from '@odyzeo/form-checkbox'
+
+export default {
+  name: 'App',
+  components: {
+    FormCheckbox,
+  },
+  data() {
+    return {
+      formErrors: {},
+      checkboxes: [
+        {
+          name: 'checkbox_ios',
+          label: 'iOS',
+          value: true,
+        },
+        {
+          name: 'checkbox_android',
+          label: 'Android',
+        },
+        {
+          name: 'checkbox_windows',
+          label: 'Windows',
+          value: false,
+        },
+      ],
+    };
+  },
+};
+</script>
+```
+
+## Props
+
+### input - required
+| Property name | Type | Default value | Description |
+| ------------- | ---- | ------------- | ----------- |
+| `name` | string | | Input `name` attribute |
+| `label` | string | `''` | Label name for checkbox |
+
+### value {string} - optional
+This is the initial value of the form checkbox.
+
+### trueValue {string} - optional
+Value for checked checkbox. Default: `yes`.
+
+### falseValue {string} - optional
+Value for unchecked checkbox.
+
+### formErrors {array} - optional
+Array of errors to display.
+
+## Events
+Component emits 'input' event with value of the element
+
+## Development
+
+```
+npm run serve
+```
+
+or
+
+```bash
+yarn serve
 ```
