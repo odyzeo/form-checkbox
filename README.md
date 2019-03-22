@@ -52,31 +52,32 @@ import '@odyzeo/form-checkbox/dist/form-checkbox.css';
 import FormCheckbox from '@odyzeo/form-checkbox'
 
 export default {
-  name: 'App',
-  components: {
-    FormCheckbox,
-  },
-  data() {
-    return {
-      formErrors: {},
-      checkboxes: [
-        {
-          name: 'checkbox_ios',
-          label: 'iOS',
-          value: true,
-        },
-        {
-          name: 'checkbox_android',
-          label: 'Android',
-        },
-        {
-          name: 'checkbox_windows',
-          label: 'Windows',
-          value: false,
-        },
-      ],
-    };
-  },
+    name: 'App',
+    components: {
+        FormCheckbox,
+    },
+    data() {
+        return {
+            formErrors: {},
+            checkboxes: [
+                {
+                    name: 'checkbox_ios',
+                    label: ' <strong>iOS</strong>',
+                    value: true,
+                    html: true,
+                },
+                {
+                    name: 'checkbox_android',
+                    label: 'Android',
+                },
+                {
+                    name: 'checkbox_windows',
+                    label: 'Windows',
+                    value: false,
+                },
+            ],
+        };
+    },
 };
 </script>
 ```
@@ -88,6 +89,7 @@ export default {
 | ------------- | ---- | ------------- | ----------- |
 | `name` | string | | Input `name` attribute |
 | `label` | string | `''` | Label name for checkbox |
+| `html` | boolean | `false` | Display label with `v-html` |
 
 ### value {string} - optional
 This is the initial value of the form checkbox.
@@ -96,7 +98,7 @@ This is the initial value of the form checkbox.
 Value for checked checkbox. Default: `yes`.
 
 ### falseValue {string} - optional
-Value for unchecked checkbox.
+Value for unchecked checkbox. Default: `null`.
 
 ### formErrors {array} - optional
 Array of errors to display.

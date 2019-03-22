@@ -1,93 +1,100 @@
 <template>
-  <div
-    class="form-item"
-    :class="{
-      'form-item--error': isErrorClass,
-    }"
-  >
-    <label class="form-checkbox">
-      <input
-        type="hidden"
-        :name="input.name"
-        :value="falseValue"
-        v-if="showFalseInput"
-      >
-      <input
-        type="checkbox"
-        class="form-checkbox__input"
-        :value="trueValue"
-        :id="uid"
-        :name="input.name"
-        :checked="value"
-        @change="change"
-      >
-      <span class="form-checkbox__element"></span>
-      <span class="form-checkbox__text">
-        {{ input.label }}
-      </span>
-    </label>
-    <div v-if="showFormErrors">
-      <div
-        class="form-item__error"
-        :key="`be_error_${key}`"
-        v-for="(error, key) in formErrors"
-        v-html="error"
-      ></div>
+    <div
+        :class="{
+            'form-item--error': isErrorClass,
+        }"
+        class="form-item"
+    >
+        <label class="form-checkbox">
+            <input
+                v-if="showFalseInput"
+                :name="input.name"
+                :value="falseValue"
+                type="hidden"
+            >
+            <input
+                :value="trueValue"
+                :id="uid"
+                :name="input.name"
+                :checked="value"
+                type="checkbox"
+                class="form-checkbox__input"
+                @change="change"
+            >
+            <span class="form-checkbox__element"></span>
+            <span
+                v-if="input.html"
+                class="form-checkbox__text"
+                v-html="input.label"
+            ></span>
+            <span v-else>
+                {{ input.label }}
+            </span>
+        </label>
+        <div v-if="showFormErrors">
+            <div
+                v-for="(error, key) in formErrors"
+                :key="`be_error_${key}`"
+                class="form-item__error"
+                v-html="error"
+            ></div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  props: {
-    input: {
-      type: Object,
-      required: true,
+    props: {
+        input: {
+            type: Object,
+            required: true,
+        },
+        formErrors: {
+            type: [Array, Object],
+            default: () => [],
+        },
+        value: {
+            type: [String, Number, Boolean],
+            default: false,
+        },
+        trueValue: {
+            type: [String, Number, Boolean],
+            default: 'yes',
+        },
+        falseValue: {
+            type: [String, Number, Boolean],
+            default: null,
+        },
     },
-    formErrors: {
-      type: [Array, Object],
-      default: () => [],
+    data() {
+        return {
+            errors: [],
+            showFormErrors: false,
+        };
     },
-    value: {
-      type: [String, Number, Boolean],
-      default: false,
+    computed: {
+        uid() {
+            // eslint-disable-next-line no-underscore-dangle
+            return `form-item-${this._uid}`;
+        },
+        isErrorClass() {
+            return this.errors.length || (this.formErrors.length && this.showFormErrors);
+        },
+        showFalseInput() {
+            return this.falseValue && !this.value;
+        },
     },
-    trueValue: {
-      type: [String, Number, Boolean],
-      default: 'yes',
+    watch: {
+        formErrors() {
+            this.showFormErrors = true;
+        },
     },
-    falseValue: {
-      type: [String, Number, Boolean],
+    methods: {
+        change($event) {
+            this.showFormErrors = false;
+            this.$emit('input', $event.target.checked);
+        },
     },
-  },
-  data() {
-    return {
-      errors: [],
-      showFormErrors: false,
-    };
-  },
-  computed: {
-    uid() {
-      return `form-item-${this._uid}`;
-    },
-    isErrorClass() {
-      return this.errors.length || (this.formErrors.length && this.showFormErrors);
-    },
-    showFalseInput() {
-      return this.falseValue && !this.value;
-    },
-  },
-  watch: {
-    formErrors() {
-      this.showFormErrors = true;
-    },
-  },
-  methods: {
-    change($event) {
-      this.showFormErrors = false;
-      this.$emit('input', $event.target.checked);
-    },
-  },
 };
 </script>
 
