@@ -25,10 +25,10 @@
             <span
                 v-if="input.html"
                 class="form-checkbox__text"
-                v-html="input.label"
+                v-html="translate(input.label)"
             ></span>
             <span v-else>
-                {{ input.label }}
+                {{ translate(input.label) }}
             </span>
         </label>
         <div v-if="showFormErrors">
@@ -36,7 +36,7 @@
                 v-for="(error, key) in formErrors"
                 :key="`be_error_${key}`"
                 class="form-item__error"
-                v-html="error"
+                v-html="translate(error)"
             ></div>
         </div>
     </div>
@@ -63,6 +63,10 @@ export default {
         },
         falseValue: {
             type: [String, Number, Boolean],
+            default: null,
+        },
+        trans: {
+            type: Function,
             default: null,
         },
     },
@@ -93,6 +97,13 @@ export default {
         change($event) {
             this.showFormErrors = false;
             this.$emit('input', $event.target.checked);
+        },
+        translate(key) {
+            if (typeof this.trans === 'function') {
+                return this.trans.bind(this)(key);
+            }
+
+            return key;
         },
     },
 };

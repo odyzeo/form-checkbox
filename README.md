@@ -94,6 +94,9 @@ export default {
 ### value {string} - optional
 This is the initial value of the form checkbox.
 
+### trans {Function} - optional 
+Custom function to translate or modify input label.
+
 ### trueValue {string} - optional
 Value for checked checkbox. Default: `yes`.
 
