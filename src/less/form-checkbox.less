@@ -1,30 +1,47 @@
 @color--form-checkbox: #50bccb;
 
 .form-checkbox {
-  position: relative;
-  display: block;
-  cursor: pointer;
+    position: relative;
+    display: block;
+    cursor: pointer;
 }
 
 .form-checkbox__element {
-  z-index: 1;
+    z-index: 1;
 
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  vertical-align: text-top;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    vertical-align: text-top;
 
-  background: white content-box;
-  border: 1px solid #8d8d8d;
-  border-radius: 2px;
-  transition: all .3s ease;
+    background: white content-box;
+    border: 1px solid #8d8d8d;
+    border-radius: 2px;
+    transition: all .3s ease;
 
-  .form-checkbox__input:checked + & {
-    background-color: @color--form-checkbox;
-  }
+    .form-checkbox__input:checked + & {
+        background-color: @color--form-checkbox;
+    }
+
+    .form-checkbox__input:focus + & {
+        border-color: @color--form-checkbox;
+    }
 }
 
 .form-checkbox__input {
-  display: none;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.form-item {
+
+    &.is-disabled,
+    &.is-readonly {
+
+        .form-checkbox {
+            opacity: .4;
+        }
+    }
 }

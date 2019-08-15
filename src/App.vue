@@ -64,6 +64,18 @@ export default {
                     label: 'Windows',
                     value: false,
                 },
+                {
+                    name: 'checkbox_ie',
+                    label: 'IE',
+                    value: false,
+                    disabled: true,
+                },
+                {
+                    name: 'checkbox_zeo',
+                    label: 'Zeo',
+                    value: true,
+                    readonly: true,
+                },
             ],
         };
     },

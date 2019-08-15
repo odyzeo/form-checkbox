@@ -2,6 +2,8 @@
     <div
         :class="{
             'form-item--error': isErrorClass,
+            'is-disabled': input.disabled,
+            'is-readonly': input.readonly,
         }"
         class="form-item"
     >
@@ -10,6 +12,8 @@
                 v-if="showFalseInput"
                 :name="input.name"
                 :value="falseValue"
+                :disabled="input.disabled"
+                :readonly="input.readonly"
                 type="hidden"
             >
             <input
@@ -17,6 +21,8 @@
                 :id="uid"
                 :name="input.name"
                 :checked="value"
+                :disabled="input.disabled"
+                :readonly="input.readonly"
                 type="checkbox"
                 class="form-checkbox__input"
                 @change="change"

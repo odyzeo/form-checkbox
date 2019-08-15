@@ -75,6 +75,18 @@ export default {
                     label: 'Windows',
                     value: false,
                 },
+                {
+                    name: 'checkbox_ie',
+                    label: 'IE',
+                    value: false,
+                    disabled: true,
+                },
+                {
+                    name: 'checkbox_zeo',
+                    label: 'Zeo',
+                    value: true,
+                    readonly: true,
+                },
             ],
         };
     },
@@ -90,6 +102,8 @@ export default {
 | `name` | string | | Input `name` attribute |
 | `label` | string | `''` | Label name for checkbox |
 | `html` | boolean | `false` | Display label with `v-html` |
+| `disabled` | boolean | `` | Add disabled attribute to input |
+| `readonly` | boolean | `` | Add readonly attribute to input |
 
 ### value {string} - optional
 This is the initial value of the form checkbox.
