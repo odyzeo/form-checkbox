@@ -33,7 +33,10 @@
                 class="form-checkbox__text"
                 v-html="translate(input.label)"
             ></span>
-            <span v-else>
+            <span
+                v-else
+                class="form-checkbox__text"
+            >
                 {{ translate(input.label) }}
             </span>
         </label>
