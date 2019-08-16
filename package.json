@@ -1,6 +1,6 @@
 {
     "name": "@odyzeo/form-checkbox",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Odyzeo form checkbox component with Vue",
     "main": "dist/form-checkbox.umd.js",
     "keywords": [
