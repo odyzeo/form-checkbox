@@ -110,7 +110,7 @@ export default {
 ### value {string} - optional
 This is the initial value of the form checkbox.
 
-### trans {Function} - optional 
+### trans {Function} - optional
 Custom function to translate or modify input label.
 
 ### trueValue {string} - optional
@@ -124,6 +124,11 @@ Array of errors to display.
 
 ## Events
 Component emits 'input' event with value of the element
+
+### Slots
+| Name   | Description         |
+| ---    | ---                 |
+| label  | Show custom content |
 
 ## Development
 

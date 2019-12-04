@@ -28,17 +28,19 @@
                 @change="change"
             >
             <span class="form-checkbox__element"></span>
-            <span
-                v-if="input.html"
-                class="form-checkbox__text"
-                v-html="translate(input.label)"
-            ></span>
-            <span
-                v-else
-                class="form-checkbox__text"
-            >
-                {{ translate(input.label) }}
-            </span>
+            <slot name="label">
+                <span
+                    v-if="input.html"
+                    class="form-checkbox__text"
+                    v-html="translate(input.label)"
+                ></span>
+                <span
+                    v-else
+                    class="form-checkbox__text"
+                >
+                    {{ translate(input.label) }}
+                </span>
+            </slot>
         </label>
         <div v-if="showFormErrors">
             <div
