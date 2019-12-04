@@ -2,7 +2,7 @@
 
 Simple input checkbox Vue.js component.
 
-<a href="https://form-checkbox-7dmnrvn14.now.sh" target="_blank">Demo</a>
+<a href="https://form-checkbox-8ilmputhy.now.sh" target="_blank">Demo</a>
 
 ## Installation
 
