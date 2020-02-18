@@ -4,6 +4,7 @@
             'form-item--error': isErrorClass,
             'is-disabled': input.disabled,
             'is-readonly': input.readonly,
+            'is-active': input.value,
         }"
         class="form-item"
     >
