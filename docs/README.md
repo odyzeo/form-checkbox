@@ -7,4 +7,4 @@ Features include:
 - Feature2
 - ...
 
-[Get started](./started/) or play with the [demo](https://github.com/Odyzeo &lt;tomas.zamba@odyzeo.com, peter.baricic@odyzeo.com&gt; (https://odyzeo.com)/form-checkbox/tree/dev/demo) (see [`README.md`](https://github.com/Odyzeo &lt;tomas.zamba@odyzeo.com, peter.baricic@odyzeo.com&gt; (https://odyzeo.com)/form-checkbox/) to run them).
+[Get started](./started/) or play with the [demo](https://github.com//form-checkbox/tree/dev/demo) (see [`README.md`](https://github.com//form-checkbox/) to run them).

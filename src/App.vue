@@ -12,9 +12,9 @@
                 <h1>Which platforms do you like?</h1>
                 <form-checkbox
                     v-for="(checkbox, key) in checkboxes"
-                    :input="checkbox"
                     :key="`${checkbox.name}-${checkbox.value}-${key}`"
                     v-model="checkbox.value"
+                    :input="checkbox"
                     :form-errors="formErrors[checkbox.name]"
                 ></form-checkbox>
 
@@ -24,6 +24,7 @@
                     v-for="(checkbox, key) in checkboxes"
                     :key="key"
                 >
+                    <!--eslint-disable-next-line vue/no-v-html-->
                     <span v-html="checkbox.label"></span>: {{ checkbox.value }}
                 </div>
 
@@ -38,13 +39,8 @@
 </template>
 
 <script>
-import FormCheckbox from './components/FormCheckbox';
-
 export default {
     name: 'App',
-    components: {
-        FormCheckbox,
-    },
     data() {
         return {
             formErrors: {},
@@ -91,5 +87,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../src/less/app.less';
+  @import '../src/less/app.less';
 </style>

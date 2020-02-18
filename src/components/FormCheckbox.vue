@@ -17,8 +17,8 @@
                 type="hidden"
             >
             <input
-                :value="trueValue"
                 :id="uid"
+                :value="trueValue"
                 :name="input.name"
                 :checked="value"
                 :disabled="input.disabled"
@@ -29,11 +29,13 @@
             >
             <span class="form-checkbox__element"></span>
             <slot name="label">
+                <!--eslint-disable vue/no-v-html-->
                 <span
                     v-if="input.html"
                     class="form-checkbox__text"
                     v-html="translate(input.label)"
                 ></span>
+                <!--eslint-enable vue/no-v-html-->
                 <span
                     v-else
                     class="form-checkbox__text"
@@ -43,12 +45,14 @@
             </slot>
         </label>
         <div v-if="showFormErrors">
+            <!--eslint-disable vue/no-v-html-->
             <div
                 v-for="(error, key) in formErrors"
                 :key="`be_error_${key}`"
                 class="form-item__error"
                 v-html="translate(error)"
             ></div>
+            <!--eslint-enable vue/no-v-html-->
         </div>
     </div>
 </template>
@@ -104,6 +108,12 @@ export default {
             this.showFormErrors = true;
         },
     },
+    created() {
+        this.$formItem.event.$emit('subscribe', this);
+    },
+    beforeDestroy() {
+        this.$formItem.event.$emit('unsubscribe', this);
+    },
     methods: {
         change($event) {
             this.showFormErrors = false;
@@ -121,5 +131,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../less/form-checkbox';
+  @import '../less/form-checkbox';
 </style>

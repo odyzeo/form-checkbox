@@ -36,3 +36,15 @@ Vue.use(form-checkbox)
 
 You don't need to do this when using global script tags.
 
+## Dev Build
+
+You will have to clone directly from GitHub and build `form-checkbox` yourself if
+you want to use the latest dev build.
+
+```sh
+$ git clone https://github.com//form-checkbox.git node_modules/form-checkbox
+$ cd node_modules/form-checkbox
+$ npm install
+$ npm run build
+```
+

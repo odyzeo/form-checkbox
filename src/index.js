@@ -1,109 +1,61 @@
-import FormItem from './components/FormCheckbox';
+// eslint-disable-next-line import/extensions
+import FormItem from './components/FormCheckbox.vue';
 
-const version = '__VERSION__'
+const version = '__VERSION__';
+let installed = false;
 
 const install = (Vue, options = {}) => {
     /**
      * Makes sure that plugin can be installed only once
      */
-    if (this.installed) {
+    if (installed) {
         return;
     }
 
-    /**
-     * Functions
-     */
-    function subscribeFormItem(item) {
-        Plugin.activeItems.push(item);
-    }
-
-    function unsubscribeFormItem(item) {
-        const index = Plugin.activeItems.indexOf(item);
-
-        if (index !== -1) {
-            Plugin.activeItems.splice(index, 1);
-        }
-    }
-
-    function callFunctionOnFormItem(name, functionName) {
-        Plugin.activeItems
-            .filter(item => item.groupName !== '' && item.groupName === name)
-            .forEach((item) => {
-                item[functionName]();
-            });
-    }
-
-    function getErrors(name) {
-        const errors = [];
-
-        Plugin.activeItems
-            .filter(item => item.groupName !== '' && item.groupName === name)
-            .forEach((item) => {
-                if (item.errors.length > 0) {
-                    errors.push(...item.errors);
-                }
-            });
-
-        return errors;
-    }
-
-    /**
-     * Main logic
-     */
-    const defaultComponentName = 'form-item';
+    const activeItems = [];
+    const event = new Vue();
+    const defaultComponentName = 'form-checkbox';
     const defaultTrans = key => key;
     const {
         componentName = defaultComponentName,
         trans = defaultTrans,
     } = options;
 
-    this.installed = true;
-    this.event = new Vue();
-    this.componentName = componentName;
-    this.activeItems = [];
-
-    this.event.$on('subscribe', subscribeFormItem);
-    this.event.$on('unsubscribe', unsubscribeFormItem);
-
     /**
-     * Plugin API
+     * Functions
      */
-    // eslint-disable-next-line
+    function subscribeFormItem(item) {
+        activeItems.push(item);
+    }
+
+    function unsubscribeFormItem(item) {
+        const index = Plugin.activeItems.indexOf(item);
+
+        if (index !== -1) {
+            activeItems.splice(index, 1);
+        }
+    }
+
+    event.$on('subscribe', subscribeFormItem);
+    event.$on('unsubscribe', unsubscribeFormItem);
+
     Vue.prototype.$formItem = {
-        // methods
-        validate(name) {
-            callFunctionOnFormItem(name, 'validate');
-        },
-        clear(name) {
-            callFunctionOnFormItem(name, 'clear');
-        },
-        getErrors(name) {
-            return getErrors(name);
-        },
-        hasErrors(name) {
-            return getErrors(name).length > 0;
-        },
-
-        // properties
-        event: this.event,
-
-        // methods
+        activeItems,
+        event,
         trans,
     };
+    Vue.component(componentName, FormItem);
 
-    /**
-     * Sets custom component name (if provided)
-     */
-    Vue.component(this.componentName, FormItem);
-}
+    installed = true;
+};
 
 const plugin = {
-  install,
-  version
-}
+    install,
+    version,
+};
 
-export default plugin
+export default plugin;
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(plugin)
+    window.Vue.use(plugin);
 }

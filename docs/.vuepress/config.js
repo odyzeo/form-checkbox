@@ -10,7 +10,7 @@ module.exports = {
     }
   },
   themeConfig: {
-    repo: 'Odyzeo &lt;tomas.zamba@odyzeo.com, peter.baricic@odyzeo.com&gt; (https://odyzeo.com)/form-checkbox',
+    repo: '/form-checkbox',
     docsDir: 'docs',
     locales: {
       '/': {
@@ -19,7 +19,7 @@ module.exports = {
         editLinkText: 'Edit this page on GitHub',
         nav: [{
           text: 'Release Notes',
-          link: 'https://github.com/Odyzeo &lt;tomas.zamba@odyzeo.com, peter.baricic@odyzeo.com&gt; (https://odyzeo.com)/form-checkbox/releases'
+          link: 'https://github.com//form-checkbox/releases'
         }],
         sidebar: [
           '/installation.md',
