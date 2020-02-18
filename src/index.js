@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
 import FormItem from './components/FormCheckbox.vue';
 
 const version = '__VERSION__';

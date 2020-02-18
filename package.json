@@ -27,6 +27,7 @@
     "main": "dist/form-checkbox.common.js",
     "module": "dist/form-checkbox.esm.js",
     "unpkg": "dist/form-checkbox.umd.min.js",
+    "style": "dist/form-checkbox.css",
     "repository": {
         "type": "git",
         "url": "https://github.com/odyzeo/form-checkbox.git"
@@ -36,25 +37,25 @@
         "dist/form-checkbox.umd.min.js",
         "dist/form-checkbox.umd.js",
         "dist/form-checkbox.esm.js",
+        "dist/form-checkbox.css",
         "src"
     ],
-    "dependencies": {
-        "core-js": "^3.6.4"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.2.0",
         "@vue/cli-plugin-eslint": "~4.2.0",
         "@vue/cli-service": "~4.2.0",
         "@vue/eslint-config-airbnb": "^5.0.2",
         "babel-eslint": "^10.0.3",
+        "core-js": "^3.6.4",
         "eslint": "^6.7.2",
         "eslint-plugin-import": "^2.20.1",
         "eslint-plugin-vue": "^6.1.2",
         "less": "^3.0.4",
         "less-loader": "^5.0.0",
+        "vue": "^2.6.11",
         "vue-cli-plugin-p11n": "~0.4.0",
-        "vue-template-compiler": "^2.6.11",
-        "vue": "^2.6.11"
+        "vue-template-compiler": "^2.6.11"
     },
     "eslintConfig": {
         "root": true,
@@ -91,8 +92,7 @@
                 2,
                 "ignorePackages",
                 {
-                    "js": "never",
-                    "vue": "never"
+                    "js": "never"
                 }
             ],
             "import/prefer-default-export": 0,
