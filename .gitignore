@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
-/dist
+public
+dist/*.gz
+dist/*.map
+coverage
+docs/.vuepress/dist
 
 # local env files
 .env.local
@@ -11,7 +15,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Editor directories and files
+# related test files
+/tests/e2e/reports
+/tests/e2e/videos
+/tests/e2e/screenshots
+
+# editor directories and files
 .idea
 .vscode
 *.suo
