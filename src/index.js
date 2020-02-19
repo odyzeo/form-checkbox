@@ -28,20 +28,58 @@ const install = (Vue, options = {}) => {
     }
 
     function unsubscribeFormItem(item) {
-        const index = Plugin.activeItems.indexOf(item);
+        const index = activeItems.indexOf(item);
 
         if (index !== -1) {
             activeItems.splice(index, 1);
         }
     }
 
+    function callFunctionOnFormItem(name, functionName) {
+        activeItems
+            .filter(item => item.groupName !== '' && item.groupName === name)
+            .forEach((item) => {
+                item[functionName]();
+            });
+    }
+
+    function getErrors(name) {
+        const errors = [];
+
+        activeItems
+            .filter(item => item.groupName !== '' && item.groupName === name)
+            .forEach((item) => {
+                if (item.errors.length > 0) {
+                    errors.push(...item.errors);
+                }
+            });
+
+        return errors;
+    }
+
+
     event.$on('subscribe', subscribeFormItem);
     event.$on('unsubscribe', unsubscribeFormItem);
 
-    Vue.prototype.$formItem = {
+    Vue.prototype.$formCheckbox = {
+        // methods
+        validate(name) {
+            callFunctionOnFormItem(name, 'validate');
+        },
+        clear(name) {
+            callFunctionOnFormItem(name, 'clear');
+        },
+        getErrors(name) {
+            return getErrors(name);
+        },
+        hasErrors(name) {
+            return getErrors(name).length > 0;
+        },
+        trans,
+
+        // properties
         activeItems,
         event,
-        trans,
     };
     Vue.component(componentName, FormItem);
 

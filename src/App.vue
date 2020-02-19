@@ -16,6 +16,7 @@
                     v-model="checkbox.value"
                     :input="checkbox"
                     :form-errors="formErrors[checkbox.name]"
+                    :group-name="checkbox.groupName"
                 ></form-checkbox>
 
                 <p></p>
@@ -50,15 +51,24 @@ export default {
                     label: ' <strong>iOS</strong>',
                     value: true,
                     html: true,
+                    required: true,
+                    validators: [
+                        {
+                            validator: 'required',
+                        },
+                    ],
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_android',
                     label: 'Android',
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_windows',
                     label: 'Windows',
                     value: false,
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_ie',
@@ -77,6 +87,8 @@ export default {
     },
     methods: {
         submit() {
+            this.$formCheckbox.validate('form-checkbox-form-test');
+
             this.formErrors = {
                 checkbox_android: ['Really?'],
                 checkbox_windows: ['Really?'],
