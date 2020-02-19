@@ -16,6 +16,7 @@
                     v-model="checkbox.value"
                     :input="checkbox"
                     :form-errors="formErrors[checkbox.name]"
+                    :group-name="checkbox.groupName"
                 ></form-checkbox>
 
                 <p></p>
@@ -24,6 +25,7 @@
                     v-for="(checkbox, key) in checkboxes"
                     :key="key"
                 >
+                    <!--eslint-disable-next-line vue/no-v-html-->
                     <span v-html="checkbox.label"></span>: {{ checkbox.value }}
                 </div>
 
@@ -38,13 +40,8 @@
 </template>
 
 <script>
-import FormCheckbox from './components/FormCheckbox';
-
 export default {
     name: 'App',
-    components: {
-        FormCheckbox,
-    },
     data() {
         return {
             formErrors: {},
@@ -54,15 +51,24 @@ export default {
                     label: ' <strong>iOS</strong>',
                     value: true,
                     html: true,
+                    required: true,
+                    validators: [
+                        {
+                            validator: 'required',
+                        },
+                    ],
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_android',
                     label: 'Android',
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_windows',
                     label: 'Windows',
                     value: false,
+                    groupName: 'form-checkbox-form-test',
                 },
                 {
                     name: 'checkbox_ie',
@@ -81,6 +87,8 @@ export default {
     },
     methods: {
         submit() {
+            this.$formCheckbox.validate('form-checkbox-form-test');
+
             this.formErrors = {
                 checkbox_android: ['Really?'],
                 checkbox_windows: ['Really?'],
@@ -91,5 +99,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../src/less/app.less';
+  @import '../src/less/app.less';
 </style>

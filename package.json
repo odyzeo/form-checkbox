@@ -2,7 +2,6 @@
     "name": "@odyzeo/form-checkbox",
     "version": "1.5.1",
     "description": "Odyzeo form checkbox component with Vue",
-    "main": "dist/form-checkbox.umd.js",
     "keywords": [
         "odyzeo",
         "form",
@@ -16,34 +15,47 @@
     "license": "ISC",
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "build-lib": "vue-cli-service build --target lib --name form-checkbox ./src/components/FormCheckbox.vue",
-        "lint": "vue-cli-service lint --fix"
+        "build": "npm run build:es & vue-cli-service build --target lib --name form-checkbox ./src/plugin/FormCheckbox.js",
+        "build:es": "rollup --config rollup.config.js --format es --file dist/form-checkbox.esm.js",
+        "lint": "vue-cli-service lint",
+        "start": "vue-cli-service serve"
     },
+    "main": "dist/form-checkbox.common.js",
+    "module": "dist/form-checkbox.esm.js",
+    "unpkg": "dist/form-checkbox.umd.min.js",
+    "style": "dist/form-checkbox.css",
     "repository": {
         "type": "git",
         "url": "https://github.com/odyzeo/form-checkbox.git"
     },
     "files": [
-        "dist/*",
-        "src/*",
-        "public/*",
-        "*.json",
-        ".js"
+        "dist/form-checkbox.common.js",
+        "dist/form-checkbox.umd.min.js",
+        "dist/form-checkbox.umd.js",
+        "dist/form-checkbox.esm.js",
+        "dist/form-checkbox.css",
+        "src"
     ],
-    "dependencies": {
-        "normalize.css": "^8.0.0",
-        "vue": "^2.6.10"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.0.5",
-        "@vue/cli-plugin-eslint": "^3.0.5",
-        "@vue/cli-service": "^3.0.5",
-        "@vue/eslint-config-airbnb": "^3.0.5",
-        "axios": "^0.19.0",
+        "@vue/cli-plugin-babel": "~4.2.0",
+        "@vue/cli-plugin-eslint": "~4.2.0",
+        "@vue/cli-service": "~4.2.0",
+        "@vue/eslint-config-airbnb": "^5.0.2",
+        "babel-eslint": "^10.0.3",
+        "core-js": "^3.6.4",
+        "eslint": "^6.7.2",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-vue": "^6.1.2",
         "less": "^3.0.4",
-        "less-loader": "^4.1.0",
-        "vue-template-compiler": "^2.6.10"
+        "less-loader": "^5.0.0",
+        "rollup": "^1.31.1",
+        "rollup-plugin-buble": "^0.19.8",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-css-only": "^2.0.0",
+        "rollup-plugin-vue": "^4.7.2",
+        "vue": "^2.6.11",
+        "vue-template-compiler": "^2.6.11"
     },
     "eslintConfig": {
         "root": true,
@@ -80,8 +92,7 @@
                 2,
                 "ignorePackages",
                 {
-                    "js": "never",
-                    "vue": "never"
+                    "js": "never"
                 }
             ],
             "import/prefer-default-export": 0,
@@ -89,6 +100,14 @@
                 2,
                 {
                     "props": false
+                }
+            ],
+            "no-lonely-if": 0,
+            "arrow-parens": [
+                2,
+                "as-needed",
+                {
+                    "requireForBlockBody": true
                 }
             ]
         },
@@ -103,7 +122,7 @@
     },
     "browserslist": [
         "> 1%",
-        "last 2 versions",
-        "not ie <= 8"
-    ]
+        "last 2 versions"
+    ],
+    "jsdelivr": "dist/form-checkbox.umd.min.js"
 }
