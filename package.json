@@ -15,7 +15,7 @@
     "license": "ISC",
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "npm run build:es & vue-cli-service build --target lib --name form-checkbox ./src/index.js",
+        "build": "npm run build:es & vue-cli-service build --target lib --name form-checkbox ./src/plugin/FormCheckbox.js",
         "build:es": "rollup --config rollup.config.js --format es --file dist/form-checkbox.esm.js",
         "lint": "vue-cli-service lint",
         "start": "vue-cli-service serve"
@@ -113,6 +113,11 @@
         },
         "parserOptions": {
             "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
         }
     },
     "browserslist": [

@@ -4,7 +4,7 @@ import buble from 'rollup-plugin-buble';
 import css from 'rollup-plugin-css-only';
 
 export default {
-    input: 'src/index.js', // Path relative to package.json
+    input: 'src/plugin/FormCheckbox.js',
     output: {
         name: 'form-checkbox',
         exports: 'named',

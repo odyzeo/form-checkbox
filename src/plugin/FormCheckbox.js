@@ -1,4 +1,4 @@
-import FormItem from './components/FormCheckbox.vue';
+import FormItem from '../components/FormCheckbox.vue';
 
 const version = '__VERSION__';
 let installed = false;
