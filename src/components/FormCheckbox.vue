@@ -4,6 +4,7 @@
             'form-item--error': isErrorClass,
             'is-disabled': input.disabled,
             'is-readonly': input.readonly,
+            'is-active': value,
         }"
         class="form-item"
     >
@@ -15,6 +16,7 @@
                 :disabled="input.disabled"
                 :readonly="input.readonly"
                 type="hidden"
+                @click="preventOnReadonly"
             >
             <input
                 :id="uid"
@@ -26,6 +28,7 @@
                 type="checkbox"
                 class="form-checkbox__input"
                 @change="change"
+                @click="preventOnReadonly"
             >
             <span class="form-checkbox__element"></span>
             <slot name="label">
@@ -125,6 +128,11 @@ export default {
             }
 
             return key;
+        },
+        preventOnReadonly(event) {
+            if (this.input.readonly) {
+                event.preventDefault();
+            }
         },
     },
 };
