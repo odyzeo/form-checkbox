@@ -12,9 +12,9 @@
                 <h1>Which platforms do you like?</h1>
                 <form-checkbox
                     v-for="(checkbox, key) in checkboxes"
-                    :input="checkbox"
                     :key="`${checkbox.name}-${checkbox.value}-${key}`"
                     v-model="checkbox.value"
+                    :input="checkbox"
                     :form-errors="formErrors[checkbox.name]"
                 ></form-checkbox>
 
