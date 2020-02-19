@@ -30,9 +30,7 @@
                 @change="change"
                 @click="preventOnReadonly"
             >
-
             <span class="form-checkbox__element"></span>
-
             <slot name="label">
                 <span
                     v-if="input.html"
@@ -112,7 +110,6 @@ export default {
     methods: {
         change($event) {
             this.showFormErrors = false;
-
             this.$emit('input', $event.target.checked);
         },
         translate(key) {
