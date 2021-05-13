@@ -16,6 +16,10 @@
                     v-model="checkbox.value"
                     :input="checkbox"
                     :form-errors="formErrors[checkbox.name]"
+                    :group-name="$options.GROUP_NAME"
+                    :checked.sync="checkbox.checked"
+                    :true-value="checkbox.trueValue"
+                    :false-value="checkbox.falseValue"
                 ></form-checkbox>
 
                 <p></p>
@@ -24,13 +28,28 @@
                     v-for="(checkbox, key) in checkboxes"
                     :key="key"
                 >
-                    <span v-html="checkbox.label"></span>: {{ checkbox.value }}
+                    <!--eslint-disable vue/no-v-html-->
+                    <span v-html="checkbox.label"></span>:
+                    {{ checkbox.value }} - {{ checkbox.checked }}
+                    <!--eslint-enable vue/no-v-html-->
                 </div>
 
                 <p></p>
 
                 <button class="btn-validate">
                     Send
+                </button>
+                <button
+                    class="btn-validate"
+                    @click.prevent="validate"
+                >
+                    Validate
+                </button>
+                <button
+                    class="btn-validate"
+                    @click.prevent="clear"
+                >
+                    Clear
                 </button>
             </form>
         </div>
@@ -41,6 +60,7 @@
 import FormCheckbox from './components/FormCheckbox';
 
 export default {
+    GROUP_NAME: 'group-name',
     name: 'App',
     components: {
         FormCheckbox,
@@ -52,12 +72,14 @@ export default {
                 {
                     name: 'checkbox_ios',
                     label: ' <strong>iOS</strong>',
-                    value: true,
+                    value: '1',
                     html: true,
+                    checked: true,
                 },
                 {
                     name: 'checkbox_android',
                     label: 'Android',
+                    readonly: true,
                 },
                 {
                     name: 'checkbox_windows',
@@ -71,10 +93,24 @@ export default {
                     disabled: true,
                 },
                 {
+                    name: 'checkbox_linux',
+                    label: 'Linux',
+                    value: '1',
+                    falseValue: '0',
+                },
+                {
+                    name: 'checkbox_tesla',
+                    label: 'Tesla',
+                    value: '',
+                    trueValue: 'yes',
+                    falseValue: 'no',
+                },
+                {
                     name: 'checkbox_zeo',
                     label: 'Zeo',
-                    value: true,
-                    readonly: true,
+                    value: null,
+                    required: true,
+                    validatorEvent: 'onInput',
                 },
             ],
         };
@@ -85,6 +121,12 @@ export default {
                 checkbox_android: ['Really?'],
                 checkbox_windows: ['Really?'],
             };
+        },
+        clear() {
+            this.$formItem.clear(this.$options.GROUP_NAME);
+        },
+        validate() {
+            this.$formItem.validate(this.$options.GROUP_NAME);
         },
     },
 };

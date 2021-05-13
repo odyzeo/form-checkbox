@@ -19,7 +19,7 @@
                 @click="preventOnReadonly"
             >
             <input
-                :id="uid"
+                :id="input.id"
                 :value="trueValue"
                 :name="input.name"
                 :checked="value"
@@ -32,96 +32,94 @@
             >
             <span class="form-checkbox__element"></span>
             <slot name="label">
+                <!--eslint-disable vue/no-v-html-->
                 <span
                     v-if="input.html"
                     class="form-checkbox__text"
                     v-html="translate(input.label)"
                 ></span>
+                <!--eslint-enable vue/no-v-html-->
                 <span
                     v-else
                     class="form-checkbox__text"
-                >
-                    {{ translate(input.label) }}
-                </span>
+                    v-text="translate(input.label)"
+                ></span>
             </slot>
         </label>
-        <div v-if="showFormErrors">
-            <div
-                v-for="(error, key) in formErrors"
-                :key="`be_error_${key}`"
-                class="form-item__error"
-                v-html="translate(error)"
-            ></div>
-        </div>
+
+        <form-errors
+            v-if="showFormErrors"
+            :form-errors="formErrors"
+        ></form-errors>
+        <form-errors
+            v-else
+            :form-errors="errors"
+        ></form-errors>
     </div>
 </template>
 
 <script>
+import { FormErrors, FormItem } from '@odyzeo/form-item';
+
 export default {
+    components: { FormErrors },
+    extends: FormItem,
     props: {
-        input: {
-            type: Object,
-            required: true,
-        },
-        formErrors: {
-            type: [Array, Object],
-            default: () => [],
-        },
-        value: {
-            type: [String, Number, Boolean],
-            default: false,
+        checked: {
+            type: [Boolean, String],
+            default: '1',
         },
         trueValue: {
-            type: [String, Number, Boolean],
-            default: 'yes',
+            type: [Boolean, String],
+            default: '1',
         },
         falseValue: {
-            type: [String, Number, Boolean],
+            type: String,
             default: null,
         },
-        trans: {
-            type: Function,
-            default: null,
-        },
-    },
-    data() {
-        return {
-            errors: [],
-            showFormErrors: false,
-        };
     },
     computed: {
-        uid() {
-            // eslint-disable-next-line no-underscore-dangle
-            return `form-item-${this._uid}`;
-        },
-        isErrorClass() {
-            return this.errors.length || (this.formErrors.length && this.showFormErrors);
-        },
         showFalseInput() {
             return this.falseValue && !this.value;
         },
     },
     watch: {
-        formErrors() {
-            this.showFormErrors = true;
+        value(value) {
+            this.init(value);
         },
     },
+    created() {
+        this.init(this.value);
+    },
     methods: {
-        change($event) {
-            this.showFormErrors = false;
-            this.$emit('input', $event.target.checked);
+        init(value) {
+            this.localValue = value === true || value === this.trueValue;
+            this.emitChecked();
         },
-        translate(key) {
-            if (typeof this.trans === 'function') {
-                return this.trans.bind(this)(key);
-            }
+        emitChecked() {
+            this.$emit('update:checked', this.localValue ? this.trueValue : this.falseValue);
+        },
+        change(ev) {
+            this.errors = [];
+            this.showFormErrors = false;
+            this.validateByEventType(ev.type);
 
-            return key;
+            this.$emit('input', ev.target.checked);
+            this.emitChecked();
         },
         preventOnReadonly(event) {
             if (this.input.readonly) {
                 event.preventDefault();
+            }
+        },
+        /**
+         * Used by FormItem plugin
+         */
+        validate() {
+            this.errors = [];
+
+            if (this.isRequired && !this.localValue) {
+                this.errors.push(this.translate(this.requiredMessage));
             }
         },
     },
