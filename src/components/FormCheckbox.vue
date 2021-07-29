@@ -6,7 +6,7 @@
             'is-readonly': input.readonly,
             'is-active': value,
         }"
-        class="form-item"
+        class="form-item form-item--checkbox"
     >
         <label class="form-checkbox">
             <input
