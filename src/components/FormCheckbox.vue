@@ -22,7 +22,7 @@
                 :id="input.id"
                 :value="trueValue"
                 :name="input.name"
-                :checked="value"
+                :checked="localValue"
                 :disabled="input.disabled"
                 :readonly="input.readonly"
                 type="checkbox"
