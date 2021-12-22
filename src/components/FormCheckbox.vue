@@ -1,47 +1,39 @@
 <template>
-    <div
-        :class="{
-            'form-item--error': isErrorClass,
-            'is-disabled': input.disabled,
-            'is-readonly': input.readonly,
-            'is-active': value,
-        }"
-        class="form-item form-item--checkbox"
-    >
-        <label class="form-checkbox">
+    <div :class="componentClassName">
+        <label :class="$options.CLASS_NAME.label">
             <input
                 v-if="showFalseInput"
-                :name="input.name"
-                :value="falseValue"
                 :disabled="input.disabled"
+                :name="input.name"
                 :readonly="input.readonly"
+                :value="falseValue"
                 type="hidden"
                 @click="preventOnReadonly"
             >
             <input
                 :id="input.id"
-                :value="trueValue"
-                :name="input.name"
                 :checked="localValue"
+                :class="$options.CLASS_NAME.input"
                 :disabled="input.disabled"
+                :name="input.name"
                 :readonly="input.readonly"
+                :value="trueValue"
                 type="checkbox"
-                class="form-checkbox__input"
                 @change="change"
                 @click="preventOnReadonly"
             >
-            <span class="form-checkbox__element"></span>
+            <span :class="$options.CLASS_NAME.element"></span>
             <slot name="label">
                 <!--eslint-disable vue/no-v-html-->
                 <span
                     v-if="input.html"
-                    class="form-checkbox__text"
+                    :class="$options.CLASS_NAME.text"
                     v-html="translate(input.label)"
                 ></span>
                 <!--eslint-enable vue/no-v-html-->
                 <span
                     v-else
-                    class="form-checkbox__text"
+                    :class="$options.CLASS_NAME.text"
                     v-text="translate(input.label)"
                 ></span>
             </slot>
@@ -79,6 +71,15 @@ export default {
         },
     },
     computed: {
+        componentClassName() {
+            return {
+                [this.getClassName()]: true,
+                [this.getClassName(null, 'error')]: this.isErrorClass,
+                [this.getClassName(null, 'disabled')]: this.input.disabled,
+                [this.getClassName(null, 'readonly')]: this.input.readonly,
+                [this.getClassName(null, 'active')]: this.value,
+            };
+        },
         showFalseInput() {
             return this.falseValue && !this.value;
         },
@@ -90,14 +91,33 @@ export default {
     },
     created() {
         this.init(this.value);
+        this.initClassName();
     },
     methods: {
         init(value) {
             this.localValue = value === true || value === this.trueValue;
             this.emitChecked();
         },
+        initClassName() {
+            this.$options.CLASS_NAME = {
+                element: this.getClassName('element'),
+                input: this.getClassName('input'),
+                label: this.getClassName('label'),
+                text: this.getClassName('text'),
+            };
+        },
         emitChecked() {
             this.$emit('update:checked', this.localValue ? this.trueValue : this.falseValue);
+        },
+        getClassName(element = null, modifier = null) {
+            let className = this.className ?? 'form-checkbox';
+            if (element) {
+                className = `${className}__${element}`;
+            }
+            if (modifier) {
+                className = `${className}--${modifier}`;
+            }
+            return className;
         },
         change(ev) {
             this.errors = [];

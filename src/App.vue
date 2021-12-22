@@ -12,14 +12,15 @@
                 <h1>Which platforms do you like?</h1>
                 <form-checkbox
                     v-for="(checkbox, key) in checkboxes"
-                    :key="`${checkbox.name}-${checkbox.value}-${key}`"
+                    :key="`${checkbox.name}-${checkbox.value}-${key}-${className}`"
                     v-model="checkbox.value"
-                    :input="checkbox"
+                    :class-name="className"
+                    :checked.sync="checkbox.checked"
+                    :false-value="checkbox.falseValue"
                     :form-errors="formErrors[checkbox.name]"
                     :group-name="$options.GROUP_NAME"
-                    :checked.sync="checkbox.checked"
+                    :input="checkbox"
                     :true-value="checkbox.trueValue"
-                    :false-value="checkbox.falseValue"
                 ></form-checkbox>
 
                 <p></p>
@@ -51,6 +52,13 @@
                 >
                     Clear
                 </button>
+
+                <button
+                    class="btn-validate"
+                    @click.prevent="toggleClassName"
+                >
+                    Toggle className
+                </button>
             </form>
         </div>
     </div>
@@ -67,6 +75,7 @@ export default {
     },
     data() {
         return {
+            className: null,
             formErrors: {},
             checkboxes: [
                 {
@@ -124,6 +133,9 @@ export default {
         },
         clear() {
             this.$formItem.clear(this.$options.GROUP_NAME);
+        },
+        toggleClassName() {
+            this.className = this.className === 'naked' ? null : 'naked';
         },
         validate() {
             this.$formItem.validate(this.$options.GROUP_NAME);

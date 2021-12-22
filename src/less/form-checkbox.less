@@ -1,6 +1,9 @@
 @color--form-checkbox: #50bccb;
-
 .form-checkbox {
+
+}
+
+.form-checkbox__label {
     position: relative;
     display: block;
     cursor: pointer;
@@ -35,13 +38,7 @@
     opacity: 0;
 }
 
-.form-item {
-
-    &.is-disabled,
-    &.is-readonly {
-
-        .form-checkbox {
-            opacity: .4;
-        }
-    }
+.form-checkbox--disabled,
+.form-checkbox--readonly {
+    opacity: .4;
 }
