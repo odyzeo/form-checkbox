@@ -3,7 +3,7 @@
     "version": "3.0.1",
     "description": "Odyzeo form checkbox component with Vue",
     "main": "dist/form-checkbox.common.js",
-    "module": "dist/form-checkbox.umd.js",
+    "module": "src/components/FormCheckbox.vue",
     "source": "src/components/FormCheckbox.vue",
     "browser": "dist/form-checkbox.umd.min.js",
     "style": "dist/form-checkbox.css",
