@@ -1,6 +1,6 @@
 {
     "name": "@odyzeo/form-checkbox",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "description": "Odyzeo form checkbox component with Vue",
     "main": "dist/form-checkbox.common.js",
     "module": "src/components/FormCheckbox.vue",
