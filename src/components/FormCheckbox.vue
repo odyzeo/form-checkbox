@@ -77,6 +77,7 @@ export default {
                 [this.getClassName(null, 'error')]: this.isErrorClass,
                 [this.getClassName(null, 'disabled')]: this.input.disabled,
                 [this.getClassName(null, 'readonly')]: this.input.readonly,
+                [this.getClassName(null, 'required')]: this.isRequired,
                 [this.getClassName(null, 'active')]: this.value,
             };
         },
